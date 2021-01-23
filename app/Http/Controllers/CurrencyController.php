@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\DB;
 class CurrencyController extends Controller
 {
 
-
-    public function index(Request $request)
-    {
+    public function update(){
         $currency = new Currency();
         $rates = $currency->setUrl()['rates'];
         if (DB::table('currencies')->count()==0) {
@@ -26,15 +24,19 @@ class CurrencyController extends Controller
             }
         } else {
             foreach ($rates as $key => $value) {
-
-
                 DB::table('currencies')->where('currency', $key)
                     ->update(['rate' => $value, 'updated_at' => Carbon::now()]);
             }
         }
+        sleep(1);
+        return redirect()->back()->with('msg','You have updated your data');
 
-        dd($rates);
-
-
+    }
+    // can be implemented to a button where we can click.
+    public function index()
+    {
+        $currencies = json_decode(DB::table('currencies')->get(),true);
+        
+        return view('welcome',['currencies'=>$currencies]);
     }
 }

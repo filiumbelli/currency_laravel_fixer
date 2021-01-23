@@ -1,31 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Currency Converter</title>
-    <link rel="stylesheet" href="css/app.css">
-</head>
-<body>
+@extends('layout')
+@section('content')
 <div class="container mt-5">
+    <h1>Welcome to the page</h1>
+    
+    <a type="submit" value="Update Currencies" class="btn btn-dark" name="updateCurrency" href="{{route('updateCurrency')}}">Update</a>
+    @if(Session::has('msg'))
+        <h3>{{\Session::get('msg')}}</h3>
+    @endif
     <div class="row">
         <div class="font-weight-bold col-md-2">Currency 1</div>
         <div class="font-weight-bold col-md-2">Currency 2</div>
         <div class="font-weight-bold col-md-8">Rate</div>
     </div>
-    {{{ddd($rates)}}}
-    @foreach($rates as $key => $value)
-        @if($key!== $base)
-            <div class="row">
-                <div class="col-md-2">{{$base}}</div>
 
-                <div class="col-md-2">{{$key}}</div>
-
-                <div class="col-md-8">{{$value}}</div>
-            </div>
-        @endif
+    @foreach($currencies as $currency)
+        <div class="row">
+            <div class="col-md-2">USD</div>
+            <div class="col-md-2">{{$currency['currency']}}</div>
+            <div class="col-md-2">{{$currency['rate']}}</div>
+        </div>
     @endforeach
-</div>
-</body>
-</html>
+    @endsection

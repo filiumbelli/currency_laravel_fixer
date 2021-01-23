@@ -12,5 +12,5 @@ use App\Http\Controllers\CurrencyController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/currencies', [CurrencyController::class,'index']);
+Route::Get('/',[CurrencyController::class,'index'])->name('index');
+Route::Get('/update',[CurrencyController::class,'update'])->name('updateCurrency');
